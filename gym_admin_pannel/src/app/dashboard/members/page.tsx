@@ -370,7 +370,7 @@ export default function MembersPage() {
             </div>
 
             {/* Status Filter */}
-            <Select value={statusFilter} onValueChange={(val) => { setStatusFilter(val); setPage(1); }}>
+            <Select value={statusFilter} onValueChange={(val) => { if (val) setStatusFilter(val); setPage(1); }}>
               <SelectTrigger className="bg-[#252930] border-[#2C3038] w-36 rounded-xl">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -382,7 +382,7 @@ export default function MembersPage() {
             </Select>
 
             {/* Plan Filter */}
-            <Select value={planFilter} onValueChange={(val) => { setPlanFilter(val); setPage(1); }}>
+            <Select value={planFilter} onValueChange={(val) => { if (val) setPlanFilter(val); setPage(1); }}>
               <SelectTrigger className="bg-[#252930] border-[#2C3038] w-40 rounded-xl">
                 <SelectValue placeholder="Membership Plan" />
               </SelectTrigger>

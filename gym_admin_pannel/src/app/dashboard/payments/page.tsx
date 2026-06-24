@@ -111,7 +111,7 @@ export default function PaymentsPage() {
               className="bg-[#252930] border-[#2C3038] placeholder:text-[#8E9297]/50 rounded-xl w-72 shrink-0 text-xs"
             />
 
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select value={statusFilter} onValueChange={(val) => { if (val) setStatusFilter(val); }}>
               <SelectTrigger className="bg-[#252930] border-[#2C3038] w-36 rounded-xl text-xs">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
