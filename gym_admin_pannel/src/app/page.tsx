@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dumbbell, Eye, EyeOff, KeyRound, Loader2, Mail, Activity, Trophy, Flame } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
 const loginSchema = z.object({
@@ -49,34 +50,57 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4 font-sans antialiased text-white relative overflow-hidden">
-      {/* Dynamic gym-themed background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-emerald-500/10 blur-[100px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-orange-500/10 blur-[100px] animate-pulse delay-1000" />
-        <div className="absolute top-[30%] right-[20%] w-[20vw] h-[20vw] rounded-full bg-purple-500/5 blur-[80px] animate-pulse delay-500" />
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
-      {/* Floating fitness icons */}
-      <div className="absolute top-20 left-20 opacity-10 animate-bounce">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 font-sans antialiased relative overflow-hidden">
+      {/* Decorative floating icons */}
+      <motion.div
+        animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 right-10 text-primary/20 pointer-events-none"
+      >
+        <Dumbbell className="h-20 w-20" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-32 right-32 text-primary/15 pointer-events-none"
+      >
         <Dumbbell className="h-16 w-16" />
-      </div>
-      <div className="absolute bottom-32 right-32 opacity-10 animate-bounce delay-700">
-        <Activity className="h-14 w-14" />
-      </div>
-      <div className="absolute top-1/2 right-20 opacity-10 animate-bounce delay-300">
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 left-20 text-[#FFD700]/20 pointer-events-none"
+      >
+        <Trophy className="h-16 w-16" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 15, 0], rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 right-20 text-[#FF6B35]/20 pointer-events-none"
+      >
+        <Flame className="h-24 w-24" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, -12, 0], rotate: [0, -10, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-32 left-32 text-primary/20 pointer-events-none"
+      >
+        <Dumbbell className="h-14 w-14" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 8, 0], scale: [1, 1.15, 1] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-48 left-10 text-[#FFD700]/15 pointer-events-none"
+      >
         <Trophy className="h-12 w-12" />
-      </div>
-      <div className="absolute bottom-20 left-32 opacity-10 animate-bounce delay-1000">
-        <Flame className="h-10 w-10" />
-      </div>
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, -15, 0], rotate: [0, -15, 15, 0] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 left-20 text-[#FF6B35]/15 pointer-events-none"
+      >
+        <Flame className="h-20 w-20" />
+      </motion.div>
 
       <div className="w-full max-w-[440px] z-10">
         {/* Brand Logo Header */}

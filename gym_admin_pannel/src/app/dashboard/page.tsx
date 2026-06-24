@@ -128,6 +128,27 @@ export default function DashboardPage() {
       >
         <Flame className="h-24 w-24" />
       </motion.div>
+      <motion.div
+        animate={{ y: [0, -12, 0], rotate: [0, -10, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-32 left-32 text-primary/20"
+      >
+        <Dumbbell className="h-14 w-14" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 8, 0], scale: [1, 1.15, 1] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-48 left-10 text-[#FFD700]/15"
+      >
+        <Trophy className="h-12 w-12" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, -15, 0], rotate: [0, -15, 15, 0] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 left-20 text-[#FF6B35]/15"
+      >
+        <Flame className="h-20 w-20" />
+      </motion.div>
 
       {/* Dynamic ambient header block */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
