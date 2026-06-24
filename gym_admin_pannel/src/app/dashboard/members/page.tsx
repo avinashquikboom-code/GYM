@@ -281,10 +281,8 @@ export default function MembersPage() {
         </div>
 
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11">
-              <Plus className="h-4 w-4" /> Add Member
-            </Button>
+          <DialogTrigger className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11 inline-flex shrink-0 items-center justify-center border border-transparent">
+            <Plus className="h-4 w-4" /> Add Member
           </DialogTrigger>
           <DialogContent className="bg-[#1C1E22] border-[#2C3038] text-white rounded-2xl max-w-lg">
             <DialogHeader>
@@ -319,7 +317,7 @@ export default function MembersPage() {
                   <Label className="text-xs text-[#8E9297]">Subscription Plan</Label>
                   <select {...regAdd('planId')} className="w-full bg-[#252930] border border-[#2C3038] text-sm text-white rounded-md p-2 outline-none">
                     <option value="">Select Plan</option>
-                    {plans.map(p => <option key={p.id} value={p.id}>{p.name} (${p.price})</option>)}
+                    {plans.map(p => <option key={p.id} value={p.id}>{p.name} (₹{p.price})</option>)}
                   </select>
                   {errorsAdd.planId && <p className="text-[10px] text-red-500">{errorsAdd.planId.message}</p>}
                 </div>
@@ -398,10 +396,8 @@ export default function MembersPage() {
           {/* Export Buttons */}
           <div className="flex items-center gap-2 w-full md:w-auto justify-end">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="bg-[#252930] border-[#2C3038] hover:bg-[#2C3038] rounded-xl text-xs gap-2">
-                  <Download className="h-4 w-4" /> Export Report
-                </Button>
+              <DropdownMenuTrigger className="bg-[#252930] border border-[#2C3038] hover:bg-[#2C3038] rounded-xl text-xs gap-2 inline-flex shrink-0 items-center justify-center px-4 py-2">
+                <Download className="h-4 w-4" /> Export Report
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-[#1C1E22] border-[#2C3038] text-white">
                 <DropdownMenuLabel>Choose Format</DropdownMenuLabel>
@@ -486,10 +482,8 @@ export default function MembersPage() {
                         </td>
                         <td className="p-4 text-right">
                           <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-8 w-8 text-[#8E9297] hover:text-white rounded-xl">
-                                <MoreHorizontal className="h-4.5 w-4.5" />
-                              </Button>
+                            <DropdownMenuTrigger className="h-8 w-8 text-[#8E9297] hover:text-white rounded-xl inline-flex shrink-0 items-center justify-center border border-transparent hover:bg-secondary/50 transition-all">
+                              <MoreHorizontal className="h-4.5 w-4.5" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="bg-[#1C1E22] border-[#2C3038] text-white align-end">
                               <DropdownMenuItem className="hover:bg-[#252930] gap-2" onClick={() => router.push(`/dashboard/members/${member.id}`)}>

@@ -4,7 +4,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { 
   BarChart3, FileSpreadsheet, FileText, Download, Loader2, 
-  Users, CalendarDays, DollarSign, Award, Activity 
+  Users, CalendarDays, IndianRupee, Award, Activity 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -95,7 +95,7 @@ export default function ReportsPage() {
       case 'revenue':
         title = 'Gym Revenue and Invoices Log';
         headers = [['Invoice ID', 'Client Name', 'Amount', 'Date', 'Status']];
-        body = payments.map(p => [p.id, p.memberName, `$${p.amount}`, p.date, p.status.toUpperCase()]);
+        body = payments.map(p => [p.id, p.memberName, `₹${p.amount}`, p.date, p.status.toUpperCase()]);
         filename = 'gym_revenue_report.pdf';
         break;
       case 'trainers':
@@ -122,7 +122,7 @@ export default function ReportsPage() {
   const reportsList = [
     { type: 'members', title: 'Member Roster Reports', desc: 'Complete listings of client details, weight, and plans.', icon: Users },
     { type: 'attendance', title: 'Attendance Log Reports', desc: 'Scan gate logins, on-time, and check-in volumes.', icon: CalendarDays },
-    { type: 'revenue', title: 'Revenue Billings Reports', desc: 'Summary of paid and pending membership transactions.', icon: DollarSign },
+    { type: 'revenue', title: 'Revenue Billings Reports', desc: 'Summary of paid and pending membership transactions.', icon: IndianRupee },
     { type: 'trainers', title: 'Trainer Coaching Reports', desc: 'Coach ratings, rosters, and success percentages.', icon: Award },
   ];
 

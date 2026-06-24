@@ -171,11 +171,7 @@ export interface DashboardStats {
   totalMembers: number;
   activeMembers: number;
   totalTrainers: number;
-  todayAttendance: {
-    present: number;
-    absent: number;
-    late: number;
-  };
+  todayAttendance: number;
   monthlyRevenue: number;
   activeMemberships: number;
 }

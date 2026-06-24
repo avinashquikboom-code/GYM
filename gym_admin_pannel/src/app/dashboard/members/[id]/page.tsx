@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, User, Dumbbell, Apple, CalendarCheck, DollarSign, Trophy, Activity } from 'lucide-react';
+import { ArrowLeft, User, Dumbbell, Apple, CalendarCheck, IndianRupee, Trophy, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -119,7 +119,7 @@ export default function MemberProfilePage({ params }: { params: { id: string } }
             <CalendarCheck className="h-4 w-4 mr-2" /> Attendance
           </TabsTrigger>
           <TabsTrigger value="payments" className="data-[state=active]:bg-primary data-[state=active]:text-background">
-            <DollarSign className="h-4 w-4 mr-2" /> Payments
+            <IndianRupee className="h-4 w-4 mr-2" /> Payments
           </TabsTrigger>
           <TabsTrigger value="transformation" className="data-[state=active]:bg-primary data-[state=active]:text-background">
             <Trophy className="h-4 w-4 mr-2" /> Transformation

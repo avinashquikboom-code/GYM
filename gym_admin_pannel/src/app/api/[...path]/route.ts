@@ -57,13 +57,13 @@ export async function GET(
         ];
 
         const attendanceChart = [
-          { day: 'Mon', attendance: 34 },
-          { day: 'Tue', attendance: 42 },
-          { day: 'Wed', attendance: 48 },
-          { day: 'Thu', attendance: 39 },
-          { day: 'Fri', attendance: 45 },
-          { day: 'Sat', attendance: 28 },
-          { day: 'Sun', attendance: 12 }
+          { day: 'Mon', present: 52, absent: 8, late: 5 },
+          { day: 'Tue', present: 55, absent: 6, late: 4 },
+          { day: 'Wed', present: 48, absent: 10, late: 7 },
+          { day: 'Thu', present: 58, absent: 5, late: 2 },
+          { day: 'Fri', present: 45, absent: 12, late: 8 },
+          { day: 'Sat', present: 60, absent: 4, late: 1 },
+          { day: 'Sun', present: 35, absent: 8, late: 2 }
         ];
 
         // Combined average weight / fat history for active members
@@ -89,7 +89,7 @@ export async function GET(
             id: `act-p-${p.id}`,
             type: 'payment',
             title: 'Membership Renewal',
-            description: `${p.memberName} paid $${p.amount} via Invoicing.`,
+            description: `${p.memberName} paid ₹${p.amount} via Invoicing.`,
             time: p.date
           })),
           ...db.attendance.slice(-3).map(a => ({

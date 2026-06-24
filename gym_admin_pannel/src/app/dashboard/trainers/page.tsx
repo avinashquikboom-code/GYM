@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { 
   Award, Star, Mail, Phone, Calendar, Briefcase, Plus, Edit2, 
-  Trash2, X, Users, Loader2, Sparkles, AlertCircle, CheckCircle2, UserMinus
+  Trash2, X, Users, Loader2, Sparkles, AlertCircle, CheckCircle2, UserMinus, Search
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -175,10 +175,8 @@ export default function TrainersPage() {
 
         {/* Register Dialog */}
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11">
-              <Plus className="h-4 w-4" /> Register Coach
-            </Button>
+          <DialogTrigger className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11 inline-flex shrink-0 items-center justify-center border border-transparent">
+            <Plus className="h-4 w-4" /> Register Coach
           </DialogTrigger>
           <DialogContent className="bg-[#1C1E22] border-[#2C3038] text-white rounded-2xl max-w-md">
             <DialogHeader>

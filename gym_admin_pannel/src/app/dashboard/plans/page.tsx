@@ -100,10 +100,8 @@ export default function PlansPage() {
         </div>
 
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11">
-              <Plus className="h-4 w-4" /> Add New Tier
-            </Button>
+          <DialogTrigger className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11 inline-flex shrink-0 items-center justify-center border border-transparent">
+            <Plus className="h-4 w-4" /> Add New Tier
           </DialogTrigger>
           <DialogContent className="bg-[#1C1E22] border-[#2C3038] text-white rounded-2xl max-w-md">
             <DialogHeader>
@@ -119,7 +117,7 @@ export default function PlansPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-[#8E9297]">Price ($)</Label>
+                  <Label className="text-xs text-[#8E9297]">Price (₹)</Label>
                   <Input {...register('price')} type="number" className="bg-[#252930] border-[#2C3038]" placeholder="e.g. 59" />
                   {errors.price && <p className="text-[10px] text-red-500">{errors.price.message}</p>}
                 </div>
@@ -169,7 +167,7 @@ export default function PlansPage() {
               </CardHeader>
               <CardContent className="space-y-6 pb-6">
                 <div className="flex items-baseline gap-1 mt-2">
-                  <span className="text-4xl font-heading font-extrabold text-[#7CE047]">${plan.price}</span>
+                  <span className="text-4xl font-heading font-extrabold text-[#7CE047]">₹{plan.price}</span>
                   <span className="text-xs text-[#8E9297] font-semibold uppercase">/ per {plan.duration}</span>
                 </div>
 

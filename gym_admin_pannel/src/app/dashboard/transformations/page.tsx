@@ -38,9 +38,9 @@ export default function TransformationsPage() {
   // Dummy baseline values for comparison
   const getBaseline = (m: any) => {
     return {
-      weight: m.weightHistory[0]?.value || m.currentWeight + 4,
-      fat: m.bodyFatHistory[0]?.value || m.bodyFat + 3,
-      muscle: m.muscleMassHistory[0]?.value || m.muscleMass - 2,
+      weight: m.weightHistory?.[0]?.value || m.currentWeight + 4,
+      fat: m.bodyFatHistory?.[0]?.value || m.bodyFat + 3,
+      muscle: m.muscleMassHistory?.[0]?.value || m.muscleMass - 2,
       chest: m.measurements?.chest - 4 || 92,
       waist: m.measurements?.waist + 6 || 84,
       biceps: m.measurements?.biceps - 4 || 30,

@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 
 const fetchAttendance = async () => {
@@ -32,7 +33,7 @@ export default function AttendancePage() {
   const { data: logs = [], isLoading } = useQuery<any[]>({
     queryKey: ['attendance'],
     queryFn: fetchAttendance,
-    refetchInterval: 3000 // auto refresh check-in logs
+    refetchInterval: 10000 // auto refresh check-in logs every 10 seconds
   });
 
   const { data: members = [] } = useQuery<any[]>({
@@ -88,10 +89,8 @@ export default function AttendancePage() {
 
         {/* QR Simulator Dialog */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11">
-              <QrCode className="h-4 w-4" /> Simulate QR Scan
-            </Button>
+          <DialogTrigger className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11 inline-flex shrink-0 items-center justify-center border border-transparent">
+            <QrCode className="h-4 w-4" /> Simulate QR Scan
           </DialogTrigger>
           <DialogContent className="bg-[#1C1E22] border-[#2C3038] text-white rounded-2xl max-w-sm">
             <DialogHeader>

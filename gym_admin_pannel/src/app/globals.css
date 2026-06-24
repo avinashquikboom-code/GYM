@@ -48,72 +48,72 @@
 }
 
 :root {
-  /* Pitch Black Theme for Gym App Ecosystem */
-  --background: #0E0F12;
-  --foreground: #FFFFFF;
-  --card: #1C1E22;
-  --card-foreground: #FFFFFF;
-  --popover: #1C1E22;
-  --popover-foreground: #FFFFFF;
-  --primary: #7CE047;
-  --primary-foreground: #0E0F12;
-  --secondary: #252930;
-  --secondary-foreground: #FFFFFF;
-  --muted: #252930;
-  --muted-foreground: #8E9297;
-  --accent: #252930;
-  --accent-foreground: #7CE047;
-  --destructive: #FF5252;
-  --destructive-foreground: #FFFFFF;
-  --border: #2C3038;
-  --input: #252930;
-  --ring: #7CE047;
-  --chart-1: #7CE047;
-  --chart-2: #5BAA32;
-  --chart-3: #2196F3;
-  --chart-4: #FFC107;
-  --chart-5: #FF5252;
-  --radius: 0.75rem;
+  /* Modern Dark Theme with Sophisticated Palette */
+  --background: #0a0a0f;
+  --foreground: #f1f5f9;
+  --card: #15151a;
+  --card-foreground: #f1f5f9;
+  --popover: #15151a;
+  --popover-foreground: #f1f5f9;
+  --primary: #10b981;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1e1e24;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e1e24;
+  --muted-foreground: #94a3b8;
+  --accent: #1e1e24;
+  --accent-foreground: #10b981;
+  --destructive: #ef4444;
+  --destructive-foreground: #f1f5f9;
+  --border: #27272a;
+  --input: #1e1e24;
+  --ring: #10b981;
+  --chart-1: #10b981;
+  --chart-2: #06b6d4;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --radius: 0.5rem;
 
-  --sidebar: #1C1E22;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #7CE047;
-  --sidebar-primary-foreground: #0E0F12;
-  --sidebar-accent: #252930;
-  --sidebar-accent-foreground: #7CE047;
-  --sidebar-border: #2C3038;
-  --sidebar-ring: #7CE047;
+  --sidebar: #15151a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #0a0a0f;
+  --sidebar-accent: #1e1e24;
+  --sidebar-accent-foreground: #10b981;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #10b981;
 }
 
 .dark {
   /* Same colors as root to ensure dark theme stays permanent */
-  --background: #0E0F12;
-  --foreground: #FFFFFF;
-  --card: #1C1E22;
-  --card-foreground: #FFFFFF;
-  --popover: #1C1E22;
-  --popover-foreground: #FFFFFF;
-  --primary: #7CE047;
-  --primary-foreground: #0E0F12;
-  --secondary: #252930;
-  --secondary-foreground: #FFFFFF;
-  --muted: #252930;
-  --muted-foreground: #8E9297;
-  --accent: #252930;
-  --accent-foreground: #7CE047;
-  --destructive: #FF5252;
-  --destructive-foreground: #FFFFFF;
-  --border: #2C3038;
-  --input: #252930;
-  --ring: #7CE047;
-  --sidebar: #1C1E22;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #7CE047;
-  --sidebar-primary-foreground: #0E0F12;
-  --sidebar-accent: #252930;
-  --sidebar-accent-foreground: #7CE047;
-  --sidebar-border: #2C3038;
-  --sidebar-ring: #7CE047;
+  --background: #0a0a0f;
+  --foreground: #f1f5f9;
+  --card: #15151a;
+  --card-foreground: #f1f5f9;
+  --popover: #15151a;
+  --popover-foreground: #f1f5f9;
+  --primary: #10b981;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1e1e24;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e1e24;
+  --muted-foreground: #94a3b8;
+  --accent: #1e1e24;
+  --accent-foreground: #10b981;
+  --destructive: #ef4444;
+  --destructive-foreground: #f1f5f9;
+  --border: #27272a;
+  --input: #1e1e24;
+  --ring: #10b981;
+  --sidebar: #15151a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #0a0a0f;
+  --sidebar-accent: #1e1e24;
+  --sidebar-accent-foreground: #10b981;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #10b981;
 }
 
 @layer base {
@@ -131,32 +131,42 @@
 
 /* Custom styles for premium look & scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0E0F12;
+  background: #0a0a0f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2C3038;
-  border-radius: 3px;
+  background: #27272a;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #8E9297;
+  background: #3f3f46;
 }
 
 /* Glassmorphism custom classes */
 .glass-panel {
-  background: rgba(28, 30, 34, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(44, 48, 56, 0.5);
+  background: rgba(21, 21, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(39, 39, 42, 0.6);
 }
 
-.glow-green {
-  box-shadow: 0 0 15px rgba(124, 224, 71, 0.15);
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
 }
 
-.glow-green-sm {
-  box-shadow: 0 0 8px rgba(124, 224, 71, 0.1);
+.glow-emerald-sm {
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+/* Modern card gradient */
+.card-gradient {
+  background: linear-gradient(145deg, #15151a 0%, #1e1e24 100%);
+}
+
+/* Subtle border glow */
+.border-glow {
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.1);
 }

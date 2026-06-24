@@ -4,7 +4,7 @@ import React, { use } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { 
-  Dumbbell, Apple, Calendar, DollarSign, Activity, Settings, 
+  Dumbbell, Apple, Calendar, IndianRupee, Activity, Settings, 
   Ruler, History, ArrowLeft, Loader2, Sparkles, Scale, Percent, 
   TrendingUp, CheckCircle, HelpCircle, XCircle, AlertCircle
 } from 'lucide-react';
@@ -212,7 +212,7 @@ export default function MemberDetailPage({ params }: MemberDetailParams) {
             <Calendar className="h-3.5 w-3.5 mr-1.5" /> Attendance
           </TabsTrigger>
           <TabsTrigger value="payments" className="rounded-lg py-2 px-4 text-xs font-semibold data-[state=active]:bg-[#7CE047] data-[state=active]:text-[#0E0F12]">
-            <DollarSign className="h-3.5 w-3.5 mr-1.5" /> Payments
+            <IndianRupee className="h-3.5 w-3.5 mr-1.5" /> Payments
           </TabsTrigger>
           <TabsTrigger value="transformation" className="rounded-lg py-2 px-4 text-xs font-semibold data-[state=active]:bg-[#7CE047] data-[state=active]:text-[#0E0F12]">
             <Activity className="h-3.5 w-3.5 mr-1.5" /> Transformation
@@ -494,7 +494,7 @@ export default function MemberDetailPage({ params }: MemberDetailParams) {
                       {member.payments.map((p: any) => (
                         <tr key={p.id} className="border-b border-[#2C3038] last:border-none">
                           <td className="py-4 font-mono text-white">{p.id}</td>
-                          <td className="py-4 font-bold text-white">${p.amount}</td>
+                          <td className="py-4 font-bold text-white">₹{p.amount}</td>
                           <td className="py-4 text-[#8E9297]">{p.type}</td>
                           <td className="py-4 text-[#8E9297]">{p.date}</td>
                           <td className="py-4 text-right">

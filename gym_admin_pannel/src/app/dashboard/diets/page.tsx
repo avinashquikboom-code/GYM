@@ -117,10 +117,8 @@ export default function DietsPage() {
         </div>
 
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11">
-              <Plus className="h-4 w-4" /> Create Template
-            </Button>
+          <DialogTrigger className="bg-[#7CE047] hover:bg-[#6bd039] text-[#0E0F12] font-bold text-xs uppercase tracking-wider rounded-xl gap-2 px-5 h-11 inline-flex shrink-0 items-center justify-center border border-transparent">
+            <Plus className="h-4 w-4" /> Create Template
           </DialogTrigger>
           <DialogContent className="bg-[#1C1E22] border-[#2C3038] text-white rounded-2xl max-w-xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>

@@ -14,7 +14,7 @@ import {
   Dumbbell,
   Apple,
   CalendarCheck,
-  DollarSign,
+  DollarSign: IndianRupee,
   Trophy,
   Bell,
   FileText,

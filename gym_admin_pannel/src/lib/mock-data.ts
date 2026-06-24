@@ -355,11 +355,7 @@ export const mockDashboardStats: DashboardStats = {
   totalMembers: 156,
   activeMembers: 142,
   totalTrainers: 8,
-  todayAttendance: {
-    present: 45,
-    absent: 12,
-    late: 8,
-  },
+  todayAttendance: 45,
   monthlyRevenue: 285000,
   activeMemberships: 142,
 };

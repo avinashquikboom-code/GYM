@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { 
-  DollarSign, Landmark, HelpCircle, Receipt, ArrowUpRight, 
+  IndianRupee, Landmark, HelpCircle, Receipt, ArrowUpRight, 
   ArrowDownRight, Loader2, Sparkles, AlertCircle, FileText
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
@@ -46,7 +47,7 @@ export default function PaymentsPage() {
 
   const printInvoice = (p: any) => {
     toast.success(`Opening print layout for invoice ${p.id}...`, {
-      description: `Client: ${p.memberName} &bull; Amount: $${p.amount}`,
+      description: `Client: ${p.memberName} &bull; Amount: ₹${p.amount}`,
     });
   };
 
@@ -68,7 +69,7 @@ export default function PaymentsPage() {
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-[#8E9297] uppercase tracking-wider">Gross Collections</span>
-              <span className="text-3xl font-heading font-extrabold text-[#7CE047] block mt-1">${totalRevenue.toLocaleString()}</span>
+              <span className="text-3xl font-heading font-extrabold text-[#7CE047] block mt-1">₹{totalRevenue.toLocaleString()}</span>
             </div>
             <div className="w-10 h-10 rounded-lg bg-[#7CE047]/10 flex items-center justify-center text-[#7CE047]">
               <ArrowUpRight className="h-5 w-5" />
@@ -79,7 +80,7 @@ export default function PaymentsPage() {
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-[#8E9297] uppercase tracking-wider">Pending Balances</span>
-              <span className="text-3xl font-heading font-extrabold text-[#FFC107] block mt-1">${pendingRevenue.toLocaleString()}</span>
+              <span className="text-3xl font-heading font-extrabold text-[#FFC107] block mt-1">₹{pendingRevenue.toLocaleString()}</span>
             </div>
             <div className="w-10 h-10 rounded-lg bg-[#FFC107]/10 flex items-center justify-center text-[#FFC107]">
               <HelpCircle className="h-5 w-5" />
@@ -90,7 +91,7 @@ export default function PaymentsPage() {
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-[#8E9297] uppercase tracking-wider">Failed Transactions</span>
-              <span className="text-3xl font-heading font-extrabold text-[#FF5252] block mt-1">${failedRevenue.toLocaleString()}</span>
+              <span className="text-3xl font-heading font-extrabold text-[#FF5252] block mt-1">₹{failedRevenue.toLocaleString()}</span>
             </div>
             <div className="w-10 h-10 rounded-lg bg-[#FF5252]/10 flex items-center justify-center text-[#FF5252]">
               <ArrowDownRight className="h-5 w-5" />
@@ -158,7 +159,7 @@ export default function PaymentsPage() {
                   <TableRow key={p.id} className="border-[#2C3038] hover:bg-[#252930]/10 transition-colors">
                     <TableCell className="font-mono text-xs text-white py-4">{p.id}</TableCell>
                     <TableCell className="font-bold text-white">{p.memberName}</TableCell>
-                    <TableCell className="font-bold text-white">${p.amount}</TableCell>
+                    <TableCell className="font-bold text-white">₹{p.amount}</TableCell>
                     <TableCell className="text-[#8E9297] text-xs font-medium">{p.type}</TableCell>
                     <TableCell className="text-[#8E9297] text-xs">{p.date}</TableCell>
                     <TableCell>
