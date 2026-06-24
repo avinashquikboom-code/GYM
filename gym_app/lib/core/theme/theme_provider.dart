@@ -8,52 +8,54 @@ final storageServiceProvider = Provider<StorageService>((ref) {
   throw UnimplementedError('StorageService has not been initialized');
 });
 
-// Theme notifier to manage ThemeMode state
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  final StorageService _storageService;
+// Theme state class to hold both theme mode and accent color
+class ThemeState {
+  final ThemeMode mode;
+  final Color accentColor;
 
-  ThemeNotifier(this._storageService)
-      : super(_storageService.isDarkMode() ? ThemeMode.dark : ThemeMode.light);
+  ThemeState({required this.mode, required this.accentColor});
 
-  bool get isDarkMode => state == ThemeMode.dark;
-
-  void toggleTheme() {
-    if (state == ThemeMode.dark) {
-      state = ThemeMode.light;
-      _storageService.setDarkMode(false);
-    } else {
-      state = ThemeMode.dark;
-      _storageService.setDarkMode(true);
-    }
-  }
-
-  void setDarkMode(bool dark) {
-    state = dark ? ThemeMode.dark : ThemeMode.light;
-    _storageService.setDarkMode(dark);
+  ThemeState copyWith({ThemeMode? mode, Color? accentColor}) {
+    return ThemeState(
+      mode: mode ?? this.mode,
+      accentColor: accentColor ?? this.accentColor,
+    );
   }
 }
 
-// Provider for the theme state
-final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  final storageService = ref.read(storageServiceProvider);
-  return ThemeNotifier(storageService);
-});
-
-// Accent color notifier to manage accent color state
-class AccentColorNotifier extends StateNotifier<Color> {
+// Theme notifier to manage both ThemeMode and accent color state
+class ThemeNotifier extends StateNotifier<ThemeState> {
   final StorageService _storageService;
 
-  AccentColorNotifier(this._storageService)
-      : super(_storageService.getAccentColor() ?? AppColors.primaryGreen);
+  ThemeNotifier(this._storageService)
+      : super(ThemeState(
+          mode: _storageService.isDarkMode() ? ThemeMode.dark : ThemeMode.light,
+          accentColor: _storageService.getAccentColor() ?? AppColors.primaryGreen,
+        ));
+
+  bool get isDarkMode => state.mode == ThemeMode.dark;
+  Color get accentColor => state.accentColor;
+
+  void toggleTheme() {
+    final newMode = state.mode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    state = state.copyWith(mode: newMode);
+    _storageService.setDarkMode(newMode == ThemeMode.dark);
+  }
+
+  void setDarkMode(bool dark) {
+    final newMode = dark ? ThemeMode.dark : ThemeMode.light;
+    state = state.copyWith(mode: newMode);
+    _storageService.setDarkMode(dark);
+  }
 
   void setAccentColor(Color color) {
-    state = color;
+    state = state.copyWith(accentColor: color);
     _storageService.setAccentColor(color);
   }
 }
 
-// Provider for the accent color
-final accentColorProvider = StateNotifierProvider<AccentColorNotifier, Color>((ref) {
+// Provider for the theme state
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeState>((ref) {
   final storageService = ref.read(storageServiceProvider);
-  return AccentColorNotifier(storageService);
+  return ThemeNotifier(storageService);
 });

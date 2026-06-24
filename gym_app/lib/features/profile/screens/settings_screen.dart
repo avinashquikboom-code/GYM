@@ -23,7 +23,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedAccentColor = ref.read(accentColorProvider);
+    _selectedAccentColor = ref.read(themeNotifierProvider).accentColor;
     _selectedLanguage = ref.read(languageNotifierProvider);
   }
 
@@ -213,7 +213,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _showThemeCenter() {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColorNotifier = ref.read(accentColorProvider.notifier);
+    final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
     // Define 7 accent colors with better names
     final accentColors = [
@@ -283,8 +283,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     return GestureDetector(
                       onTap: () {
                         setState(() => _selectedAccentColor = colorData['color'] as Color);
-                        // Update the accent color notifier with the new accent color
-                        accentColorNotifier.setAccentColor(colorData['color'] as Color);
+                        // Update the theme notifier with the new accent color
+                        themeNotifier.setAccentColor(colorData['color'] as Color);
                         Navigator.pop(context);
                       },
                       child: AnimatedContainer(

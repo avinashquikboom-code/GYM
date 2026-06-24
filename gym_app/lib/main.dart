@@ -32,24 +32,23 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to theme changes
-    final themeMode = ref.watch(themeNotifierProvider);
-    final accentColor = ref.watch(accentColorProvider);
+    final themeState = ref.watch(themeNotifierProvider);
 
     // Set status bar to transparent
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: themeMode == ThemeMode.dark ? Brightness.light : Brightness.dark,
-        statusBarBrightness: themeMode == ThemeMode.dark ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness: themeState.mode == ThemeMode.dark ? Brightness.light : Brightness.dark,
+        statusBarBrightness: themeState.mode == ThemeMode.dark ? Brightness.dark : Brightness.light,
       ),
     );
 
     return MaterialApp(
       title: 'Gym Fitness Club',
       debugShowCheckedModeBanner: false,
-      themeMode: themeMode,
-      theme: AppTheme.getLightThemeWithColor(accentColor),
-      darkTheme: AppTheme.getDarkThemeWithColor(accentColor),
+      themeMode: themeState.mode,
+      theme: AppTheme.getLightThemeWithColor(themeState.accentColor),
+      darkTheme: AppTheme.getDarkThemeWithColor(themeState.accentColor),
       home: const SplashScreen(),
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);
