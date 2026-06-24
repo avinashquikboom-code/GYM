@@ -171,48 +171,14 @@ class ProfileScreen extends ConsumerWidget {
                       );
                     },
                   ),
-                  
-                  // Live Theme Toggler Row
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              isDark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
-                              color: AppColors.primaryGreen,
-                              size: 22,
-                            ),
-                            const SizedBox(width: 16),
-                            Text(
-                              'Dark Mode Theme',
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Switch(
-                          value: isDark,
-                          activeThumbColor: AppColors.primaryGreen,
-                          inactiveTrackColor: Colors.grey.withOpacity(0.3),
-                          onChanged: (value) {
-                            themeNotifier.toggleTheme();
-                          },
-                        ),
-                      ],
-                    ),
+                  _buildMenuItem(
+                    context,
+                    icon: Icons.palette_outlined,
+                    title: 'Theme Center',
+                    trailingText: isDark ? 'Default Theme' : 'Custom Theme',
+                    onTap: () {
+                      _showThemeCenter(context, ref);
+                    },
                   ),
 
                   _buildMenuItem(
@@ -349,6 +315,114 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showThemeCenter(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final themeNotifier = ref.read(themeNotifierProvider.notifier);
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Consumer(
+          builder: (context, ref, child) {
+            final currentTheme = ref.watch(themeNotifierProvider);
+            final currentIsDark = currentTheme == ThemeMode.dark;
+
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 4,
+                      margin: const EdgeInsets.bottom(20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    Text(
+                      'Theme Center',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryGreen.withOpacity(0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.dark_mode_outlined, color: AppColors.primaryGreen),
+                      ),
+                      title: Text(
+                        'Default Theme',
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: currentIsDark ? FontWeight.bold : FontWeight.normal,
+                          color: currentIsDark ? AppColors.primaryGreen : null,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Premium dark-themed visual experience',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                        ),
+                      ),
+                      trailing: currentIsDark ? const Icon(Icons.check_circle, color: AppColors.primaryGreen) : null,
+                      onTap: () {
+                        themeNotifier.setDarkMode(true);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryGreen.withOpacity(0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.light_mode_outlined, color: AppColors.primaryGreen),
+                      ),
+                      title: Text(
+                        'Custom Theme',
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: !currentIsDark ? FontWeight.bold : FontWeight.normal,
+                          color: !currentIsDark ? AppColors.primaryGreen : null,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Sleek light-themed visual experience',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                        ),
+                      ),
+                      trailing: !currentIsDark ? const Icon(Icons.check_circle, color: AppColors.primaryGreen) : null,
+                      onTap: () {
+                        themeNotifier.setDarkMode(false);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
