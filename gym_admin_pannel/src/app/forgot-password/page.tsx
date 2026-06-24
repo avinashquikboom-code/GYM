@@ -2,21 +2,18 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/auth-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dumbbell, Loader2 } from 'lucide-react';
+import { Dumbbell, Loader2, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const router = useRouter();
-  const { login, loading } = useAuth();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,12 +21,12 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const success = await login(email, password);
-      if (success) {
-        router.push('/dashboard');
-      }
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      toast.success('Password reset link sent to your email');
+      router.push('/login');
     } catch (error) {
-      toast.error('Login failed. Please check your credentials.');
+      toast.error('Failed to send reset link. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -54,9 +51,9 @@ export default function LoginPage() {
               <Dumbbell className="w-8 h-8 text-background" />
             </motion.div>
             <div>
-              <CardTitle className="text-2xl font-bold text-foreground">Gym Admin Panel</CardTitle>
+              <CardTitle className="text-2xl font-bold text-foreground">Forgot Password</CardTitle>
               <CardDescription className="text-muted-foreground mt-2">
-                Enter your credentials to access the dashboard
+                Enter your email to receive a password reset link
               </CardDescription>
             </div>
           </CardHeader>
@@ -74,36 +71,31 @@ export default function LoginPage() {
                   className="bg-background border-border focus:border-primary"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-foreground">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="bg-background border-border focus:border-primary"
-                />
-              </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button
                 type="submit"
                 className="w-full bg-primary text-background hover:bg-primary/90 glow-green-sm"
-                disabled={isLoading || loading}
+                disabled={isLoading}
               >
-                {isLoading || loading ? (
+                {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
+                    Sending...
                   </>
                 ) : (
-                  'Sign In'
+                  'Send Reset Link'
                 )}
               </Button>
-              <Link href="/forgot-password" className="text-sm text-primary hover:underline">
-                Forgot Password?
+              <Link href="/login" className="w-full">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full text-muted-foreground hover:text-foreground"
+                >
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Login
+                </Button>
               </Link>
             </CardFooter>
           </form>
