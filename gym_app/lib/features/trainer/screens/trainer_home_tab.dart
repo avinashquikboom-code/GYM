@@ -201,53 +201,84 @@ class TrainerHomeTab extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-        borderRadius: BorderRadius.circular(24),
+        gradient: LinearGradient(
+          colors: isWarning
+              ? [
+                  AppColors.error.withOpacity(0.15),
+                  AppColors.error.withOpacity(0.05),
+                ]
+              : [
+                  theme.colorScheme.primary.withOpacity(0.15),
+                  theme.colorScheme.primary.withOpacity(0.05),
+                ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isDark ? AppColors.darkDivider : Colors.transparent,
-          width: 1,
+          color: isWarning
+              ? AppColors.error.withOpacity(0.3)
+              : theme.colorScheme.primary.withOpacity(0.2),
+          width: 1.5,
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: (isWarning ? AppColors.error : theme.colorScheme.primary).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  isWarning ? Icons.warning_amber_rounded : Icons.trending_up_rounded,
+                  color: isWarning ? AppColors.error : theme.colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+              // Mini sparkline chart
+              SizedBox(
+                width: 60,
+                height: 30,
+                child: ProgressLineChart(
+                  values: chartValues,
+                  isMini: true,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
           Text(
             title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyMedium?.copyWith(
-              fontSize: 11,
+              fontSize: 12,
               color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Text(
             value,
             style: theme.textTheme.titleLarge?.copyWith(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: isWarning ? AppColors.warning : AppColors.darkTextPrimary,
+              color: isWarning ? AppColors.error : theme.colorScheme.primary,
             ),
           ),
-          const SizedBox(height: 2),
+          const SizedBox(height: 4),
           Text(
             subtitle,
-            style: theme.textTheme.bodyMedium?.copyWith(
+            style: theme.textTheme.bodySmall?.copyWith(
               fontSize: 11,
-              color: isWarning ? AppColors.warning.withOpacity(0.8) : AppColors.primaryGreen,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const Spacer(),
-          // Small sparkline chart
-          SizedBox(
-            height: 40,
-            child: ProgressLineChart(
-              values: chartValues,
-              isMini: true,
+              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
             ),
           ),
         ],

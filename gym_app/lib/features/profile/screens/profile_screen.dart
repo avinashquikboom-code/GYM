@@ -5,7 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_urls.dart';
 import '../../../core/theme/theme_provider.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../../auth/screens/welcome_screen.dart';
+import '../../auth/screens/role_selection_screen.dart';
 import '../../plans/providers/plans_provider.dart';
 import '../../progress/screens/progress_screen.dart';
 import '../../dashboard/screens/main_dashboard.dart';
@@ -345,7 +345,7 @@ class ProfileScreen extends ConsumerWidget {
                         final navigator = Navigator.of(context);
                         await ref.read(authProvider.notifier).logout();
                         navigator.pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                          MaterialPageRoute(builder: (context) => const RoleSelectionScreen()),
                           (route) => false,
                         );
                       }

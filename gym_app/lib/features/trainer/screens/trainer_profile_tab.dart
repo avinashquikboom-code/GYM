@@ -5,8 +5,9 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import '../../../core/language/language_provider.dart';
+import '../../../core/theme/theme_provider.dart';
 import '../providers/trainer_providers.dart';
-import 'trainer_login_screen.dart';
+import '../../auth/screens/role_selection_screen.dart';
 
 class TrainerProfileTab extends ConsumerWidget {
   const TrainerProfileTab({super.key});
@@ -174,11 +175,179 @@ class TrainerProfileTab extends ConsumerWidget {
     );
   }
 
+  void _showThemeCenter(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final themeNotifier = ref.read(themeNotifierProvider.notifier);
+    final currentAccentColor = ref.read(themeNotifierProvider).accentColor;
+
+    // Define 7 accent colors with better names
+    final accentColors = [
+      {'name': 'Neon Green', 'color': Color(0xFF7CE047), 'icon': Icons.fiber_manual_record},
+      {'name': 'Ocean Blue', 'color': Color(0xFF2196F3), 'icon': Icons.water_drop},
+      {'name': 'Royal Purple', 'color': Color(0xFF9C27B0), 'icon': Icons.diamond},
+      {'name': 'Sunset Orange', 'color': Color(0xFFFF9800), 'icon': Icons.wb_sunny},
+      {'name': 'Hot Pink', 'color': Color(0xFFE91E63), 'icon': Icons.favorite},
+      {'name': 'Crimson Red', 'color': Color(0xFFF44336), 'icon': Icons.local_fire_department},
+      {'name': 'Ocean Teal', 'color': Color(0xFF009688), 'icon': Icons.waves},
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                Text(
+                  'Choose Your Accent Color',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Personalize your app experience',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                // Color grid
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 1.1,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: accentColors.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  itemBuilder: (context, index) {
+                    final colorData = accentColors[index];
+                    final isSelected = currentAccentColor == colorData['color'];
+                    
+                    return GestureDetector(
+                      onTap: () {
+                        themeNotifier.setAccentColor(colorData['color'] as Color);
+                        Navigator.pop(context);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        decoration: BoxDecoration(
+                          color: colorData['color'] as Color,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isSelected 
+                                ? Colors.white 
+                                : Colors.transparent,
+                            width: 3,
+                          ),
+                          boxShadow: isSelected
+                              ? [
+                                  BoxShadow(
+                                    color: (colorData['color'] as Color).withOpacity(0.5),
+                                    blurRadius: 16,
+                                    spreadRadius: 2,
+                                  ),
+                                ]
+                              : [
+                                  BoxShadow(
+                                    color: (colorData['color'] as Color).withOpacity(0.2),
+                                    blurRadius: 8,
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              colorData['icon'] as IconData,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            if (isSelected) ...[
+                              const SizedBox(height: 4),
+                              const Icon(
+                                Icons.check_circle,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                // Color names in a better layout
+                Wrap(
+                  spacing: 16,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.center,
+                  children: accentColors.map((colorData) {
+                    final isSelected = currentAccentColor == colorData['color'];
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            color: colorData['color'] as Color,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          colorData['name'] as String,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: isSelected 
+                                ? (colorData['color'] as Color)
+                                : (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary),
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void _handleLogout(BuildContext context, WidgetRef ref) {
     ref.read(trainerAuthProvider.notifier).logout();
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const TrainerLoginScreen()),
+      MaterialPageRoute(builder: (context) => const RoleSelectionScreen()),
       (route) => false,
     );
   }
@@ -340,35 +509,73 @@ class TrainerProfileTab extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: const Icon(Icons.translate_rounded, color: AppColors.primaryGreen),
-                      title: const Text('Language'),
-                      trailing: Text(
-                        ref.watch(languageNotifierProvider),
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                    Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(24),
+                      child: InkWell(
+                        onTap: () => _showLanguageSelector(context, ref),
+                        borderRadius: BorderRadius.circular(24),
+                        child: ListTile(
+                          leading: const Icon(Icons.translate_rounded, color: AppColors.primaryGreen),
+                          title: const Text('Language'),
+                          trailing: Text(
+                            ref.watch(languageNotifierProvider),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                            ),
+                          ),
                         ),
                       ),
-                      onTap: () => _showLanguageSelector(context, ref),
                     ),
                     Divider(
                       color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
                       height: 1,
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primaryGreen),
-                      title: const Text('Change Password'),
-                      trailing: const Icon(Icons.chevron_right, size: 20),
-                      onTap: () => _showChangePasswordDialog(context),
+                    Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(24),
+                      child: InkWell(
+                        onTap: () => _showThemeCenter(context, ref),
+                        borderRadius: BorderRadius.circular(24),
+                        child: ListTile(
+                          leading: const Icon(Icons.palette_outlined, color: AppColors.primaryGreen),
+                          title: const Text('Theme Colors'),
+                          trailing: const Icon(Icons.chevron_right, size: 20),
+                        ),
+                      ),
                     ),
                     Divider(
                       color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
                       height: 1,
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.logout_rounded, color: AppColors.error),
-                      title: const Text('Logout', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
-                      onTap: () => _handleLogout(context, ref),
+                    Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(24),
+                      child: InkWell(
+                        onTap: () => _showChangePasswordDialog(context),
+                        borderRadius: BorderRadius.circular(24),
+                        child: ListTile(
+                          leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primaryGreen),
+                          title: const Text('Change Password'),
+                          trailing: const Icon(Icons.chevron_right, size: 20),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
+                      height: 1,
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(24),
+                      child: InkWell(
+                        onTap: () => _handleLogout(context, ref),
+                        borderRadius: BorderRadius.circular(24),
+                        child: ListTile(
+                          leading: const Icon(Icons.logout_rounded, color: AppColors.error),
+                          title: const Text('Logout', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
                     ),
                   ],
                 ),

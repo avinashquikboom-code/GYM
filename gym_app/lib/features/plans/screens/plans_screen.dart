@@ -5,6 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/plan_toggle_button.dart';
 import '../providers/plans_provider.dart';
 import '../widgets/plan_card.dart';
+import 'payment_screen.dart';
 
 class PlansScreen extends ConsumerStatefulWidget {
   const PlansScreen({super.key});
@@ -286,16 +287,16 @@ class _PlansScreenState extends ConsumerState<PlansScreen> {
                         features: features,
                         isPopular: isPopular,
                         isActive: isActive,
-                        onSelect: () async {
-                          await plansNotifier.selectPlan(title);
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Successfully subscribed to $title!'),
-                                backgroundColor: AppColors.success,
+                        onSelect: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PaymentScreen(
+                                planName: title,
+                                price: price,
                               ),
-                            );
-                          }
+                            ),
+                          );
                         },
                       ),
                     );
