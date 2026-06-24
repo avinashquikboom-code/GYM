@@ -36,7 +36,49 @@ type WorkoutFormInputs = z.infer<typeof workoutFormSchema>;
 const fetchWorkouts = async () => {
   const res = await fetch('/api/workouts');
   if (!res.ok) throw new Error('Failed to load workouts');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'WRK-001',
+        name: 'Upper Body Hypertrophy',
+        category: 'Muscle Gain',
+        exercises: [
+          { name: 'Bench Press', sets: 4, reps: '8-10', restTime: '90s', notes: 'Focus on form' },
+          { name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', restTime: '60s', notes: '' },
+          { name: 'Lat Pulldown', sets: 4, reps: '10-12', restTime: '60s', notes: 'Wide grip' },
+          { name: 'Shoulder Press', sets: 3, reps: '10-12', restTime: '60s', notes: '' },
+          { name: 'Tricep Dips', sets: 3, reps: '12-15', restTime: '45s', notes: '' }
+        ]
+      },
+      {
+        id: 'WRK-002',
+        name: 'HIIT Cardio Blast',
+        category: 'Fat Loss',
+        exercises: [
+          { name: 'Burpees', sets: 4, reps: '15', restTime: '30s', notes: 'Fast pace' },
+          { name: 'Jump Squats', sets: 4, reps: '20', restTime: '30s', notes: '' },
+          { name: 'Mountain Climbers', sets: 4, reps: '30s', restTime: '30s', notes: '' },
+          { name: 'Box Jumps', sets: 3, reps: '12', restTime: '45s', notes: 'Focus on landing' },
+          { name: 'Sprints', sets: 5, reps: '30s', restTime: '60s', notes: 'Max effort' }
+        ]
+      },
+      {
+        id: 'WRK-003',
+        name: 'Lower Body Strength',
+        category: 'Strength',
+        exercises: [
+          { name: 'Back Squat', sets: 5, reps: '5', restTime: '180s', notes: 'Heavy weight' },
+          { name: 'Deadlift', sets: 4, reps: '5', restTime: '180s', notes: 'Focus on form' },
+          { name: 'Leg Press', sets: 4, reps: '8-10', restTime: '90s', notes: '' },
+          { name: 'Romanian Deadlift', sets: 3, reps: '10-12', restTime: '60s', notes: '' },
+          { name: 'Calf Raises', sets: 4, reps: '15', restTime: '45s', notes: '' }
+        ]
+      }
+    ];
+  }
+  return data;
 };
 
 export default function WorkoutsPage() {
@@ -107,7 +149,7 @@ export default function WorkoutsPage() {
     : workouts.filter(w => w.category === activeCategory);
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header and trigger */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>

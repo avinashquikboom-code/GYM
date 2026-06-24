@@ -28,7 +28,34 @@ type NotificationInputs = z.infer<typeof notificationFormSchema>;
 const fetchNotifications = async () => {
   const res = await fetch('/api/notifications');
   if (!res.ok) throw new Error('Failed to load notifications');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'NOT-001',
+        target: 'All Members',
+        type: 'Membership Renewal',
+        message: 'Your membership will expire in 3 days. Please renew to avoid interruption.',
+        sentAt: new Date().toISOString()
+      },
+      {
+        id: 'NOT-002',
+        target: 'All Members',
+        type: 'Announcements',
+        message: 'Gym will be closed on Sunday for maintenance.',
+        sentAt: new Date(Date.now() - 86400000).toISOString()
+      },
+      {
+        id: 'NOT-003',
+        target: 'Rahul Sharma',
+        type: 'Workout Reminder',
+        message: 'Don\'t forget your personal training session tomorrow at 6 AM.',
+        sentAt: new Date(Date.now() - 172800000).toISOString()
+      }
+    ];
+  }
+  return data;
 };
 
 const fetchMembers = async () => {

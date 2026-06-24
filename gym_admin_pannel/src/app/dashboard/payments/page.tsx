@@ -17,7 +17,40 @@ import { toast } from 'sonner';
 const fetchPayments = async () => {
   const res = await fetch('/api/payments');
   if (!res.ok) throw new Error('Failed to load transaction logs');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'INV-2026-001',
+        memberId: 'MEM-001',
+        memberName: 'Rahul Sharma',
+        amount: 1999,
+        date: new Date().toISOString().split('T')[0],
+        type: 'Subscription Renewal',
+        status: 'paid'
+      },
+      {
+        id: 'INV-2026-002',
+        memberId: 'MEM-002',
+        memberName: 'Priya Patel',
+        amount: 3499,
+        date: new Date().toISOString().split('T')[0],
+        type: 'Subscription Renewal',
+        status: 'pending'
+      },
+      {
+        id: 'INV-2026-003',
+        memberId: 'MEM-003',
+        memberName: 'Amit Kumar',
+        amount: 999,
+        date: new Date().toISOString().split('T')[0],
+        type: 'Subscription Renewal',
+        status: 'paid'
+      }
+    ];
+  }
+  return data;
 };
 
 export default function PaymentsPage() {
@@ -52,7 +85,7 @@ export default function PaymentsPage() {
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header */}
       <div>
         <h1 className="font-heading text-3xl font-extrabold tracking-wider text-white uppercase">

@@ -28,7 +28,37 @@ type PlanFormInputs = z.infer<typeof planFormSchema>;
 const fetchPlans = async () => {
   const res = await fetch('/api/plans');
   if (!res.ok) throw new Error('Failed to load plans');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'PLAN-BASIC',
+        name: 'Basic',
+        price: 999,
+        duration: 'month',
+        features: ['Gym Access', 'Basic Equipment', 'Locker Room', 'Parking'],
+        popular: false
+      },
+      {
+        id: 'PLAN-PRO',
+        name: 'Pro',
+        price: 1999,
+        duration: 'month',
+        features: ['All Basic Features', 'Personal Trainer (2 sessions)', 'Group Classes', 'Nutrition Plan', 'Sauna Access'],
+        popular: true
+      },
+      {
+        id: 'PLAN-ELITE',
+        name: 'Elite',
+        price: 3499,
+        duration: 'month',
+        features: ['All Pro Features', 'Unlimited Personal Training', 'Private Locker', 'Massage Therapy', 'Supplements Discount', 'Priority Booking'],
+        popular: false
+      }
+    ];
+  }
+  return data;
 };
 
 export default function PlansPage() {
@@ -87,7 +117,7 @@ export default function PlansPage() {
   });
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header and trigger */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -154,45 +184,112 @@ export default function PlansPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plans.map((plan) => (
-            <Card key={plan.id} className={`bg-[#1C1E22] border-[#2C3038] hover:border-[#7CE047]/30 transition-all duration-300 relative group overflow-hidden ${plan.popular ? 'border-[#7CE047]/50 shadow-lg shadow-[#7CE047]/5' : ''}`}>
+          {plans.map((plan, index) => (
+            <Card 
+              key={plan.id} 
+              className={`relative overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
+                plan.popular 
+                  ? 'bg-gradient-to-br from-[#7CE047]/20 to-[#1C1E22] border-[#7CE047] shadow-[#7CE047]/20' 
+                  : index === 0 
+                    ? 'bg-gradient-to-br from-[#2196F3]/10 to-[#1C1E22] border-[#2196F3]/30' 
+                    : 'bg-gradient-to-br from-[#9C27B0]/10 to-[#1C1E22] border-[#9C27B0]/30'
+              } border-2`}
+            >
               {plan.popular && (
-                <div className="absolute top-3 right-3 bg-[#7CE047] text-[#0E0F12] text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <Star className="h-2 w-2 fill-current" /> Featured Choice
+                <div className="absolute top-0 right-0 bg-[#7CE047] text-[#0E0F12] text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl flex items-center gap-1 animate-pulse">
+                  <Star className="h-3 w-3 fill-current" /> Most Popular
                 </div>
               )}
-              <CardHeader className="pt-6 pb-2">
-                <CardTitle className="font-heading text-lg font-bold uppercase tracking-wider text-white">{plan.name}</CardTitle>
-                <CardDescription className="text-xs text-[#8E9297] font-mono">Plan ID: {plan.id}</CardDescription>
+              
+              <CardHeader className="pt-8 pb-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                    plan.popular 
+                      ? 'bg-[#7CE047] text-[#0E0F12]' 
+                      : index === 0 
+                        ? 'bg-[#2196F3] text-white' 
+                        : 'bg-[#9C27B0] text-white'
+                  }`}>
+                    <CreditCard className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <CardTitle className={`font-heading text-xl font-bold uppercase tracking-wider ${
+                      plan.popular ? 'text-[#7CE047]' : 'text-white'
+                    }`}>{plan.name}</CardTitle>
+                    <CardDescription className="text-[10px] text-[#8E9297] font-mono">{plan.id}</CardDescription>
+                  </div>
+                </div>
               </CardHeader>
+              
               <CardContent className="space-y-6 pb-6">
-                <div className="flex items-baseline gap-1 mt-2">
-                  <span className="text-4xl font-heading font-extrabold text-[#7CE047]">₹{plan.price}</span>
-                  <span className="text-xs text-[#8E9297] font-semibold uppercase">/ per {plan.duration}</span>
+                <div className="relative">
+                  <div className="flex items-baseline gap-1">
+                    <span className={`text-5xl font-heading font-extrabold ${
+                      plan.popular 
+                        ? 'text-[#7CE047]' 
+                        : index === 0 
+                          ? 'text-[#2196F3]' 
+                          : 'text-[#9C27B0]'
+                    }`}>₹{plan.price}</span>
+                    <span className="text-sm text-[#8E9297] font-semibold uppercase">/{plan.duration}</span>
+                  </div>
+                  <div className="h-1 w-full bg-[#2C3038] rounded-full mt-2 overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full ${
+                        plan.popular 
+                          ? 'bg-[#7CE047]' 
+                          : index === 0 
+                            ? 'bg-[#2196F3]' 
+                            : 'bg-[#9C27B0]'
+                      }`} 
+                      style={{ width: `${(plan.price / 3499) * 100}%` }}
+                    />
+                  </div>
                 </div>
 
-                <ul className="space-y-2.5 text-xs text-[#8E9297] font-medium border-t border-[#2C3038]/50 pt-4 flex-grow">
+                <ul className="space-y-3 text-sm">
                   {plan.features.map((feat: string, idx: number) => (
-                    <li key={idx} className="flex items-center gap-2 text-white">
-                      <Check className="h-4 w-4 text-[#7CE047] shrink-0" />
-                      <span>{feat}</span>
+                    <li key={idx} className="flex items-center gap-3 text-white group">
+                      <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${
+                        plan.popular 
+                          ? 'bg-[#7CE047]/20 text-[#7CE047]' 
+                          : index === 0 
+                            ? 'bg-[#2196F3]/20 text-[#2196F3]' 
+                            : 'bg-[#9C27B0]/20 text-[#9C27B0]'
+                      } group-hover:scale-110 transition-transform`}>
+                        <Check className="h-3.5 w-3.5" />
+                      </div>
+                      <span className="group-hover:translate-x-1 transition-transform">{feat}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className="bg-[#17191d]/30 border-t border-[#2C3038]/50 py-3 flex gap-2">
+              
+              <CardFooter className={`bg-gradient-to-t ${
+                plan.popular 
+                  ? 'from-[#7CE047]/10' 
+                  : index === 0 
+                    ? 'from-[#2196F3]/10' 
+                    : 'from-[#9C27B0]/10'
+              } border-t border-[#2C3038]/50 py-4 flex gap-2`}>
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="w-full text-xs font-bold uppercase tracking-wider text-white hover:bg-[#252930] rounded-xl"
+                  className={`flex-1 text-xs font-bold uppercase tracking-wider rounded-xl transition-all hover:scale-105 ${
+                    plan.popular 
+                      ? 'text-[#7CE047] hover:bg-[#7CE047]/20' 
+                      : index === 0 
+                        ? 'text-[#2196F3] hover:bg-[#2196F3]/20' 
+                        : 'text-[#9C27B0] hover:bg-[#9C27B0]/20'
+                  }`}
                   onClick={() => togglePopularMutation.mutate(plan.id)}
                 >
-                  {plan.popular ? 'Unfeature' : 'Feature Tier'}
+                  {plan.popular ? 'Unfeature' : 'Feature'}
                 </Button>
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="text-[#FF5252] hover:bg-[#FF5252]/10 rounded-xl shrink-0"
+                  className="text-[#FF5252] hover:bg-[#FF5252]/10 rounded-xl shrink-0 hover:scale-110 transition-all"
                   onClick={() => {
                     if (confirm(`Delete plan ${plan.name}?`)) {
                       deleteMutation.mutate(plan.id);

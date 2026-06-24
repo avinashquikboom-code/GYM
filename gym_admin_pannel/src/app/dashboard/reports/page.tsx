@@ -127,7 +127,7 @@ export default function ReportsPage() {
   ];
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header */}
       <div>
         <h1 className="font-heading text-3xl font-extrabold tracking-wider text-white uppercase">

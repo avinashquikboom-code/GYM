@@ -31,7 +31,46 @@ type TrainerFormInputs = z.infer<typeof trainerFormSchema>;
 const fetchTrainers = async () => {
   const res = await fetch('/api/trainers');
   if (!res.ok) throw new Error('Failed to load trainers');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'TRN-001',
+        name: 'Sarah Johnson',
+        email: 'sarah.j@gym.com',
+        mobile: '+91 98765 43210',
+        experience: 5,
+        certifications: 'CPT, Yoga Instructor, CrossFit Level 2',
+        rating: 4.8,
+        status: 'active',
+        avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop'
+      },
+      {
+        id: 'TRN-002',
+        name: 'Michael Chen',
+        email: 'michael.chen@gym.com',
+        mobile: '+91 98765 43211',
+        experience: 8,
+        certifications: 'CSCS, Nutrition Specialist, Strength Coach',
+        rating: 4.9,
+        status: 'active',
+        avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop'
+      },
+      {
+        id: 'TRN-003',
+        name: 'Emma Rodriguez',
+        email: 'emma.r@gym.com',
+        mobile: '+91 98765 43212',
+        experience: 4,
+        certifications: 'Pilates Instructor, Zumba, Personal Training',
+        rating: 4.7,
+        status: 'active',
+        avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop'
+      }
+    ];
+  }
+  return data;
 };
 
 const fetchMembers = async () => {
@@ -161,7 +200,7 @@ export default function TrainersPage() {
   const unassignedMembers = members.filter(m => !m.trainerId);
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header block */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>

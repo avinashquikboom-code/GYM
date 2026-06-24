@@ -36,7 +36,43 @@ type DietFormInputs = z.infer<typeof dietFormSchema>;
 const fetchDiets = async () => {
   const res = await fetch('/api/diets');
   if (!res.ok) throw new Error('Failed to load diets');
-  return res.json();
+  const data = await res.json();
+  // Return dummy data if API is empty
+  if (data.length === 0) {
+    return [
+      {
+        id: 'DIET-001',
+        name: 'Ketogenic Fat Loss',
+        meals: [
+          { category: 'Breakfast', name: 'Eggs and bacon', calories: 450, protein: 30, carbs: 5, fats: 35 },
+          { category: 'Lunch', name: 'Grilled chicken salad', calories: 500, protein: 45, carbs: 8, fats: 30 },
+          { category: 'Snack', name: 'Almonds and cheese', calories: 300, protein: 15, carbs: 5, fats: 25 },
+          { category: 'Dinner', name: 'Salmon with asparagus', calories: 550, protein: 40, carbs: 10, fats: 40 }
+        ]
+      },
+      {
+        id: 'DIET-002',
+        name: 'Muscle Building',
+        meals: [
+          { category: 'Breakfast', name: 'Oatmeal with protein powder', calories: 500, protein: 35, carbs: 60, fats: 10 },
+          { category: 'Lunch', name: 'Rice and chicken breast', calories: 600, protein: 50, carbs: 70, fats: 15 },
+          { category: 'Snack', name: 'Greek yogurt with berries', calories: 250, protein: 20, carbs: 30, fats: 5 },
+          { category: 'Dinner', name: 'Steak with sweet potato', calories: 700, protein: 55, carbs: 50, fats: 30 }
+        ]
+      },
+      {
+        id: 'DIET-003',
+        name: 'Balanced Maintenance',
+        meals: [
+          { category: 'Breakfast', name: 'Whole grain toast with avocado', calories: 400, protein: 12, carbs: 45, fats: 20 },
+          { category: 'Lunch', name: 'Quinoa bowl with vegetables', calories: 550, protein: 25, carbs: 65, fats: 18 },
+          { category: 'Snack', name: 'Apple and peanut butter', calories: 280, protein: 8, carbs: 35, fats: 12 },
+          { category: 'Dinner', name: 'Turkey and vegetable stir-fry', calories: 480, protein: 35, carbs: 40, fats: 15 }
+        ]
+      }
+    ];
+  }
+  return data;
 };
 
 export default function DietsPage() {
@@ -104,7 +140,7 @@ export default function DietsPage() {
   });
 
   return (
-    <div className="p-6 md:p-8 space-y-6 bg-[#0E0F12] min-h-full">
+    <div className="p-6 md:p-8 space-y-6 bg-background min-h-full">
       {/* Header and trigger */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
