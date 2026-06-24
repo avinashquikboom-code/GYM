@@ -22,6 +22,14 @@ class TrainerHomeTab extends ConsumerWidget {
     final activeMembers = authState.trainer?.activeMembersCount ?? 9;
     final todaySessions = 4; // Mock today sessions
     final pendingCheckins = attendance.where((r) => r.status == 'Pending').length;
+    
+    // Additional performance metrics
+    final completedSessions = 12; // Today's completed sessions
+    final totalSessions = 16; // Total scheduled sessions today
+    final avgSessionRating = 4.8; // Average rating from members
+    final totalHoursThisWeek = 32.5; // Total training hours this week
+    final totalRevenue = 45000; // Total revenue this month (₹)
+    final newSignupsThisWeek = 3; // New members signed up this week
 
     // Mock progress chart values for the overview cards
     final memberGrowthData = [5.0, 7.0, 8.0, 10.0, 11.0, 12.0];
@@ -116,7 +124,7 @@ class TrainerHomeTab extends ConsumerWidget {
                     context,
                     title: 'Total Members',
                     value: '$totalMembers',
-                    subtitle: '+2 this week',
+                    subtitle: '+$newSignupsThisWeek this week',
                     chartValues: memberGrowthData,
                   ).animate().fade(duration: 300.ms).slideY(begin: 0.1, end: 0),
                   
@@ -131,8 +139,8 @@ class TrainerHomeTab extends ConsumerWidget {
                   _buildOverviewCard(
                     context,
                     title: "Today's Sessions",
-                    value: '$todaySessions',
-                    subtitle: '2 completed',
+                    value: '$completedSessions/$totalSessions',
+                    subtitle: '${todaySessions} remaining',
                     chartValues: sessionData,
                   ).animate().fade(duration: 500.ms).slideY(begin: 0.1, end: 0),
 
@@ -144,6 +152,30 @@ class TrainerHomeTab extends ConsumerWidget {
                     chartValues: checkinTrend,
                     isWarning: pendingCheckins > 0,
                   ).animate().fade(duration: 600.ms).slideY(begin: 0.1, end: 0),
+
+                  _buildOverviewCard(
+                    context,
+                    title: 'Avg Rating',
+                    value: '$avgSessionRating',
+                    subtitle: '⭐ Member feedback',
+                    chartValues: [4.5, 4.6, 4.7, 4.8, 4.8, 4.8],
+                  ).animate().fade(duration: 700.ms).slideY(begin: 0.1, end: 0),
+
+                  _buildOverviewCard(
+                    context,
+                    title: 'Hours This Week',
+                    value: '${totalHoursThisWeek}h',
+                    subtitle: 'Training time',
+                    chartValues: [25.0, 28.0, 30.0, 31.5, 32.0, 32.5],
+                  ).animate().fade(duration: 800.ms).slideY(begin: 0.1, end: 0),
+
+                  _buildOverviewCard(
+                    context,
+                    title: 'Monthly Revenue',
+                    value: '₹${(totalRevenue / 1000).toInt()}K',
+                    subtitle: '+8% vs last month',
+                    chartValues: [35.0, 38.0, 40.0, 42.0, 43.5, 45.0],
+                  ).animate().fade(duration: 900.ms).slideY(begin: 0.1, end: 0),
                 ],
               ),
               const SizedBox(height: 28),

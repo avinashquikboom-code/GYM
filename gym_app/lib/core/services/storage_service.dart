@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 class StorageService {
   final SharedPreferences _prefs;
@@ -7,6 +8,8 @@ class StorageService {
 
   // Keys
   static const String _keyThemeMode = 'theme_mode';
+  static const String _keyAccentColor = 'accent_color';
+  static const String _keyLanguage = 'language';
   static const String _keyIsLoggedIn = 'is_logged_in';
   static const String _keyUserToken = 'user_token';
   static const String _keyUserName = 'user_name';
@@ -33,6 +36,32 @@ class StorageService {
 
   Future<void> setDarkMode(bool value) async {
     await _prefs.setBool(_keyThemeMode, value);
+  }
+
+  // Accent Color Persistence
+  Color? getAccentColor() {
+    final colorValue = _prefs.getString(_keyAccentColor);
+    if (colorValue != null) {
+      try {
+        return Color(int.parse(colorValue));
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  Future<void> setAccentColor(Color color) async {
+    await _prefs.setString(_keyAccentColor, color.value.toString());
+  }
+
+  // Language Persistence
+  String getLanguage() {
+    return _prefs.getString(_keyLanguage) ?? 'English';
+  }
+
+  Future<void> setLanguage(String language) async {
+    await _prefs.setString(_keyLanguage, language);
   }
 
   // Auth Persistence

@@ -1,24 +1,32 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/app_colors.dart';
 
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get darkTheme {
+  static ThemeData get darkTheme => _getDarkTheme(AppColors.primaryGreen);
+  
+  static ThemeData getDarkThemeWithColor(Color accentColor) => _getDarkTheme(accentColor);
+
+  static ThemeData _getDarkTheme(Color accentColor) {
+    final isIOS = Platform.isIOS;
+    
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkBackground,
       cardColor: AppColors.darkSurface,
       dividerColor: AppColors.darkDivider,
-      primaryColor: AppColors.primaryGreen,
+      primaryColor: accentColor,
       
       fontFamily: GoogleFonts.montserrat().fontFamily,
       
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.primaryGreen,
-        secondary: AppColors.secondaryGreen,
+      colorScheme: ColorScheme.dark(
+        primary: accentColor,
+        secondary: accentColor.withOpacity(0.7),
         surface: AppColors.darkSurface,
         error: AppColors.error,
         onPrimary: Colors.black,
@@ -84,12 +92,22 @@ class AppTheme {
         suffixIconColor: AppColors.darkTextSecondary,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: isIOS, // iOS centers title, Android aligns left
         iconTheme: IconThemeData(color: Colors.white),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        titleTextStyle: GoogleFonts.oswald(
+          fontSize: isIOS ? 17 : 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
 
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -102,20 +120,26 @@ class AppTheme {
     );
   }
 
-  static ThemeData get lightTheme {
+  static ThemeData get lightTheme => _getLightTheme(AppColors.primaryGreen);
+  
+  static ThemeData getLightThemeWithColor(Color accentColor) => _getLightTheme(accentColor);
+
+  static ThemeData _getLightTheme(Color accentColor) {
+    final isIOS = Platform.isIOS;
+    
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBackground,
       cardColor: AppColors.lightSurface,
       dividerColor: AppColors.lightDivider,
-      primaryColor: AppColors.primaryGreen,
+      primaryColor: accentColor,
 
       fontFamily: GoogleFonts.montserrat().fontFamily,
 
-      colorScheme: const ColorScheme.light(
-        primary: AppColors.primaryGreen,
-        secondary: AppColors.secondaryGreen,
+      colorScheme: ColorScheme.light(
+        primary: accentColor,
+        secondary: accentColor.withOpacity(0.7),
         surface: AppColors.lightSurface,
         error: AppColors.error,
         onPrimary: Colors.black,
@@ -181,12 +205,22 @@ class AppTheme {
         suffixIconColor: AppColors.lightTextSecondary,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: isIOS, // iOS centers title, Android aligns left
         iconTheme: IconThemeData(color: AppColors.lightTextPrimary),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+        titleTextStyle: GoogleFonts.oswald(
+          fontSize: isIOS ? 17 : 20,
+          fontWeight: FontWeight.w600,
+          color: AppColors.lightTextPrimary,
+        ),
       ),
 
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -196,6 +230,20 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
         elevation: 10,
       ),
+    );
+  }
+
+  // Platform-specific back icon
+  static IconData get platformBackIcon {
+    return Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back;
+  }
+
+  // Platform-specific back button widget
+  static Widget platformBackButton({VoidCallback? onPressed, Color? color}) {
+    return IconButton(
+      icon: Icon(platformBackIcon),
+      onPressed: onPressed ?? () => Navigator.maybePop,
+      color: color,
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_urls.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/plan_toggle_button.dart';
 import '../../home/providers/home_provider.dart';
 
@@ -111,7 +112,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(AppTheme.platformBackIcon),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(

@@ -6,7 +6,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_urls.dart';
 import '../../../core/theme/theme_provider.dart';
 import '../../../core/widgets/custom_button.dart';
-import 'welcome_screen.dart';
+import 'role_selection_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -22,8 +22,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   void initState() {
     super.initState();
-    // Hide status bar on onboarding screen
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    // Set status bar to transparent
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ));
   }
 
   final List<Map<String, String>> _slides = [
@@ -53,12 +58,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _finishOnboarding() async {
     final storage = ref.read(storageServiceProvider);
     await storage.setOnboardingCompleted(true);
-    // Restore status bar for all other screens
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     if (mounted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+        MaterialPageRoute(builder: (context) => const RoleSelectionScreen()),
       );
     }
   }

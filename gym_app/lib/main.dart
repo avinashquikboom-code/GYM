@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/services/storage_service.dart';
@@ -32,13 +33,23 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to theme changes
     final themeMode = ref.watch(themeNotifierProvider);
+    final accentColor = ref.watch(accentColorProvider);
+
+    // Set status bar to transparent
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: themeMode == ThemeMode.dark ? Brightness.light : Brightness.dark,
+        statusBarBrightness: themeMode == ThemeMode.dark ? Brightness.dark : Brightness.light,
+      ),
+    );
 
     return MaterialApp(
       title: 'Gym Fitness Club',
       debugShowCheckedModeBanner: false,
       themeMode: themeMode,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.getLightThemeWithColor(accentColor),
+      darkTheme: AppTheme.getDarkThemeWithColor(accentColor),
       home: const SplashScreen(),
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);

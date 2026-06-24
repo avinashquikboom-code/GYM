@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import '../providers/auth_provider.dart';
@@ -11,7 +12,8 @@ import '../../trainer/providers/trainer_providers.dart';
 import '../../trainer/screens/trainer_dashboard.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final bool isTrainer;
+  const LoginScreen({super.key, this.isTrainer = false});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -21,7 +23,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController(text: 'rahul@gmail.com');
   final _passwordController = TextEditingController(text: 'password123');
-  bool _isTrainer = false;
+  late bool _isTrainer;
+
+  @override
+  void initState() {
+    super.initState();
+    _isTrainer = widget.isTrainer;
+  }
 
   @override
   void dispose() {
@@ -92,7 +100,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(AppTheme.platformBackIcon),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -120,72 +128,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         : 'Login to continue your fitness journey',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Role Switcher Toggle Widget
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: isDark ? AppColors.darkSurface : AppColors.lightInput,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: isDark ? AppColors.darkDivider : Colors.transparent,
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              _isTrainer = false;
-                              _emailController.text = 'rahul@gmail.com';
-                              _passwordController.text = 'password123';
-                            }),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: !_isTrainer ? AppColors.primaryGreen : Colors.transparent,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Member Login',
-                                style: theme.textTheme.labelLarge?.copyWith(
-                                  color: !_isTrainer ? Colors.black : (isDark ? Colors.white : Colors.black),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              _isTrainer = true;
-                              _emailController.text = 'coach.marcus@gym.com';
-                              _passwordController.text = 'trainer123';
-                            }),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: _isTrainer ? AppColors.primaryGreen : Colors.transparent,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Trainer Login',
-                                style: theme.textTheme.labelLarge?.copyWith(
-                                  color: _isTrainer ? Colors.black : (isDark ? Colors.white : Colors.black),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                   const SizedBox(height: 32),

@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
+import '../../../core/language/language_provider.dart';
 import '../providers/trainer_providers.dart';
 import 'trainer_login_screen.dart';
 
@@ -104,6 +105,68 @@ class TrainerProfileTab extends ConsumerWidget {
                   const SizedBox(height: 16),
                 ],
               ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showLanguageSelector(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final languageNotifier = ref.read(languageNotifierProvider.notifier);
+    final currentLanguage = ref.read(languageNotifierProvider);
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                Text(
+                  'Select Language',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ...['English', 'Spanish', 'French', 'Hindi', 'German'].map((lang) {
+                  final isSelected = currentLanguage == lang;
+                  return ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(
+                      lang,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected ? AppColors.primaryGreen : null,
+                      ),
+                    ),
+                    trailing: isSelected ? const Icon(Icons.check, color: AppColors.primaryGreen) : null,
+                    onTap: () {
+                      languageNotifier.setLanguage(lang);
+                      Navigator.pop(context);
+                    },
+                  );
+                }),
+              ],
             ),
           ),
         );
@@ -277,6 +340,21 @@ class TrainerProfileTab extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
+                    ListTile(
+                      leading: const Icon(Icons.translate_rounded, color: AppColors.primaryGreen),
+                      title: const Text('Language'),
+                      trailing: Text(
+                        ref.watch(languageNotifierProvider),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                        ),
+                      ),
+                      onTap: () => _showLanguageSelector(context, ref),
+                    ),
+                    Divider(
+                      color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
+                      height: 1,
+                    ),
                     ListTile(
                       leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primaryGreen),
                       title: const Text('Change Password'),

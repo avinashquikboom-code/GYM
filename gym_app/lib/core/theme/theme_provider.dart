@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/storage_service.dart';
+import '../constants/app_colors.dart';
 
 // Storage service provider that will be overridden in main.dart
 final storageServiceProvider = Provider<StorageService>((ref) {
@@ -36,4 +37,23 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
 final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
   final storageService = ref.read(storageServiceProvider);
   return ThemeNotifier(storageService);
+});
+
+// Accent color notifier to manage accent color state
+class AccentColorNotifier extends StateNotifier<Color> {
+  final StorageService _storageService;
+
+  AccentColorNotifier(this._storageService)
+      : super(_storageService.getAccentColor() ?? AppColors.primaryGreen);
+
+  void setAccentColor(Color color) {
+    state = color;
+    _storageService.setAccentColor(color);
+  }
+}
+
+// Provider for the accent color
+final accentColorProvider = StateNotifierProvider<AccentColorNotifier, Color>((ref) {
+  final storageService = ref.read(storageServiceProvider);
+  return AccentColorNotifier(storageService);
 });

@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/theme/theme_provider.dart';
 import '../providers/auth_provider.dart';
-import 'welcome_screen.dart';
+import 'role_selection_screen.dart';
 import 'onboarding_screen.dart';
 import '../../dashboard/screens/main_dashboard.dart';
 
@@ -21,8 +21,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Hide status bar on launch/splash screen
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    // Set status bar to transparent
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ));
     _startTimer();
   }
 
@@ -44,15 +49,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     Widget nextScreen;
 
     if (isLoggedIn) {
-      // Restore status bar
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
       nextScreen = const MainDashboard();
     } else if (onboardingCompleted) {
-      // Restore status bar
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-      nextScreen = const WelcomeScreen();
+      nextScreen = const RoleSelectionScreen();
     } else {
-      // Onboarding screen will also hide status bar, so keep it hidden
       nextScreen = const OnboardingScreen();
     }
 
