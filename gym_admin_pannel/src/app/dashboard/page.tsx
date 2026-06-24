@@ -5,7 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { 
   Users, Award, CalendarCheck, IndianRupee, ShieldAlert,
-  ArrowUpRight, Activity, TrendingUp, Sparkles, Loader2, LogIn
+  ArrowUpRight, Activity, TrendingUp, Sparkles, Loader2, LogIn,
+  Dumbbell, Trophy, Flame
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import DashboardCharts from '@/components/dashboard-charts';
@@ -96,17 +97,72 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="p-6 md:p-8 space-y-8 bg-background min-h-full relative">
+    <div className="p-6 md:p-8 space-y-8 bg-background min-h-full relative overflow-hidden">
       
+      {/* Decorative floating icons */}
+      <motion.div
+        animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 right-10 text-primary/20"
+      >
+        <Dumbbell className="h-20 w-20" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-32 right-32 text-primary/15"
+      >
+        <Dumbbell className="h-16 w-16" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 left-20 text-[#FFD700]/20"
+      >
+        <Trophy className="h-16 w-16" />
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 15, 0], rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 right-20 text-[#FF6B35]/20"
+      >
+        <Flame className="h-24 w-24" />
+      </motion.div>
+
       {/* Dynamic ambient header block */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="font-heading text-3xl md:text-4xl font-extrabold tracking-wider text-foreground uppercase">
-            EXECUTIVE <span className="text-primary">DASHBOARD</span>
-          </h1>
-          <p className="text-xs text-muted-foreground font-medium tracking-wide mt-1">
-            Real-time telemetry, membership ratios, financial flows, and active check-ins.
-          </p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
+        <div className="flex items-center gap-4">
+          <motion.div
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            className="text-primary"
+          >
+            <Dumbbell className="h-10 w-10" />
+          </motion.div>
+          <div>
+            <h1 className="font-heading text-3xl md:text-4xl font-extrabold tracking-wider text-foreground uppercase">
+              EXECUTIVE <span className="text-primary">DASHBOARD</span>
+            </h1>
+            <p className="text-xs text-muted-foreground font-medium tracking-wide mt-1">
+              Real-time telemetry, membership ratios, financial flows, and active check-ins.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="text-[#FFD700]"
+          >
+            <Trophy className="h-8 w-8" />
+          </motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.15, 1] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+            className="text-[#FF6B35]"
+          >
+            <Flame className="h-8 w-8" />
+          </motion.div>
         </div>
       </div>
 
