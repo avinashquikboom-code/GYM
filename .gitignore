@@ -1,3 +1,5 @@
 .DS_Store
 .idea/
 *.iml
+gym_app/
+gym_backend/

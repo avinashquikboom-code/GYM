@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Pitch Black Theme for Gym App Ecosystem */
+  --background: #0E0F12;
+  --foreground: #FFFFFF;
+  --card: #1C1E22;
+  --card-foreground: #FFFFFF;
+  --popover: #1C1E22;
+  --popover-foreground: #FFFFFF;
+  --primary: #7CE047;
+  --primary-foreground: #0E0F12;
+  --secondary: #252930;
+  --secondary-foreground: #FFFFFF;
+  --muted: #252930;
+  --muted-foreground: #8E9297;
+  --accent: #252930;
+  --accent-foreground: #7CE047;
+  --destructive: #FF5252;
+  --destructive-foreground: #FFFFFF;
+  --border: #2C3038;
+  --input: #252930;
+  --ring: #7CE047;
+  --chart-1: #7CE047;
+  --chart-2: #5BAA32;
+  --chart-3: #2196F3;
+  --chart-4: #FFC107;
+  --chart-5: #FF5252;
+  --radius: 0.75rem;
+
+  --sidebar: #1C1E22;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #7CE047;
+  --sidebar-primary-foreground: #0E0F12;
+  --sidebar-accent: #252930;
+  --sidebar-accent-foreground: #7CE047;
+  --sidebar-border: #2C3038;
+  --sidebar-ring: #7CE047;
+}
+
+.dark {
+  /* Same colors as root to ensure dark theme stays permanent */
+  --background: #0E0F12;
+  --foreground: #FFFFFF;
+  --card: #1C1E22;
+  --card-foreground: #FFFFFF;
+  --popover: #1C1E22;
+  --popover-foreground: #FFFFFF;
+  --primary: #7CE047;
+  --primary-foreground: #0E0F12;
+  --secondary: #252930;
+  --secondary-foreground: #FFFFFF;
+  --muted: #252930;
+  --muted-foreground: #8E9297;
+  --accent: #252930;
+  --accent-foreground: #7CE047;
+  --destructive: #FF5252;
+  --destructive-foreground: #FFFFFF;
+  --border: #2C3038;
+  --input: #252930;
+  --ring: #7CE047;
+  --sidebar: #1C1E22;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #7CE047;
+  --sidebar-primary-foreground: #0E0F12;
+  --sidebar-accent: #252930;
+  --sidebar-accent-foreground: #7CE047;
+  --sidebar-border: #2C3038;
+  --sidebar-ring: #7CE047;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/30;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    background-color: #0E0F12;
+  }
+}
+
+/* Custom styles for premium look & scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0E0F12;
+}
+::-webkit-scrollbar-thumb {
+  background: #2C3038;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8E9297;
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+  background: rgba(28, 30, 34, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(44, 48, 56, 0.5);
+}
+
+.glow-green {
+  box-shadow: 0 0 15px rgba(124, 224, 71, 0.15);
+}
+
+.glow-green-sm {
+  box-shadow: 0 0 8px rgba(124, 224, 71, 0.1);
+}
