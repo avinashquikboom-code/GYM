@@ -63,7 +63,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (loading || !user) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-[#0E0F12] text-white">
+      <div className="flex h-screen w-screen items-center justify-center bg-background text-white">
         <div className="flex flex-col items-center gap-3">
           <Dumbbell className="h-10 w-10 text-[#7CE047] animate-spin" />
           <span className="text-sm font-semibold tracking-wider uppercase text-[#8E9297]">Loading Session...</span>
