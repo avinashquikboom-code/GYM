@@ -29,7 +29,7 @@ const memberFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long'),
   email: z.string().email('Please enter a valid email address'),
   mobile: z.string().min(8, 'Please enter a valid phone number'),
-  planId: z.string({ required_error: 'Please select a subscription plan' }),
+  planId: z.string().min(1, 'Please select a subscription plan'),
   trainerId: z.string().optional(),
   currentWeight: z.string().min(1, 'Please enter weight'),
   bodyFat: z.string().min(1, 'Please enter body fat percentage'),
