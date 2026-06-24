@@ -14,6 +14,7 @@ import 'payment_history_screen.dart';
 import 'goals_screen.dart';
 import 'notifications_settings_screen.dart';
 import 'help_support_screen.dart';
+import 'settings_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -40,7 +41,10 @@ class ProfileScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // Settings page navigation
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
             },
           ),
           const SizedBox(width: 8),
