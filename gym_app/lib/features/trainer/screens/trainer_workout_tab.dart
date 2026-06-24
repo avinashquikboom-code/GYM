@@ -410,7 +410,7 @@ class _TrainerWorkoutTabState extends ConsumerState<TrainerWorkoutTab> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primaryGreen,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         onPressed: () => _showCreateOrUpdatePlanDialog(),

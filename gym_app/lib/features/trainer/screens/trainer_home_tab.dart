@@ -201,7 +201,7 @@ class TrainerHomeTab extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isWarning
@@ -231,21 +231,21 @@ class TrainerHomeTab extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: (isWarning ? AppColors.error : theme.colorScheme.primary).withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
                   isWarning ? Icons.warning_amber_rounded : Icons.trending_up_rounded,
                   color: isWarning ? AppColors.error : theme.colorScheme.primary,
-                  size: 20,
+                  size: 18,
                 ),
               ),
               // Mini sparkline chart
               SizedBox(
-                width: 60,
-                height: 30,
+                width: 50,
+                height: 25,
                 child: ProgressLineChart(
                   values: chartValues,
                   isMini: true,
@@ -253,31 +253,31 @@ class TrainerHomeTab extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyMedium?.copyWith(
-              fontSize: 12,
+              fontSize: 11,
               color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             value,
             style: theme.textTheme.titleLarge?.copyWith(
-              fontSize: 28,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
               color: isWarning ? AppColors.error : theme.colorScheme.primary,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             subtitle,
             style: theme.textTheme.bodySmall?.copyWith(
-              fontSize: 11,
+              fontSize: 10,
               color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
             ),
           ),

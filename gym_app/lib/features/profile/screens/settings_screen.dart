@@ -215,15 +215,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final isDark = theme.brightness == Brightness.dark;
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
-    // Define 7 accent colors with better names
+    // Define accent colors with better names
     final accentColors = [
-      {'name': 'Neon Green', 'color': Color(0xFF7CE047), 'icon': Icons.fiber_manual_record},
-      {'name': 'Ocean Blue', 'color': Color(0xFF2196F3), 'icon': Icons.water_drop},
-      {'name': 'Royal Purple', 'color': Color(0xFF9C27B0), 'icon': Icons.diamond},
-      {'name': 'Sunset Orange', 'color': Color(0xFFFF9800), 'icon': Icons.wb_sunny},
-      {'name': 'Hot Pink', 'color': Color(0xFFE91E63), 'icon': Icons.favorite},
-      {'name': 'Crimson Red', 'color': Color(0xFFF44336), 'icon': Icons.local_fire_department},
-      {'name': 'Ocean Teal', 'color': Color(0xFF009688), 'icon': Icons.waves},
+      {'name': 'Default Green', 'color': Color(0xFF7CE047), 'icon': Icons.restore, 'isDefault': true},
+      {'name': 'Ocean Blue', 'color': Color(0xFF2196F3), 'icon': Icons.water_drop, 'isDefault': false},
+      {'name': 'Royal Purple', 'color': Color(0xFF9C27B0), 'icon': Icons.diamond, 'isDefault': false},
+      {'name': 'Sunset Orange', 'color': Color(0xFFFF9800), 'icon': Icons.wb_sunny, 'isDefault': false},
+      {'name': 'Hot Pink', 'color': Color(0xFFE91E63), 'icon': Icons.favorite, 'isDefault': false},
+      {'name': 'Crimson Red', 'color': Color(0xFFF44336), 'icon': Icons.local_fire_department, 'isDefault': false},
+      {'name': 'Ocean Teal', 'color': Color(0xFF009688), 'icon': Icons.waves, 'isDefault': false},
     ];
 
     showModalBottomSheet(

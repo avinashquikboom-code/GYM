@@ -373,7 +373,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddWeightDialog(context, metrics.weightCurrent),
-        backgroundColor: AppColors.primaryGreen,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.black,
         child: const Icon(Icons.add),
       ),

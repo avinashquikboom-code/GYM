@@ -40,27 +40,121 @@ class AppTheme {
             fontSize: 24,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            color: AppColors.darkTextPrimary,
+            color: accentColor,
           ),
           titleMedium: GoogleFonts.oswald(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
-            color: AppColors.darkTextPrimary,
+            color: accentColor,
+          ),
+          titleSmall: GoogleFonts.oswald(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+            color: accentColor,
           ),
           bodyLarge: GoogleFonts.montserrat(
             fontSize: 16,
+            fontWeight: FontWeight.w500,
             color: AppColors.darkTextPrimary,
           ),
           bodyMedium: GoogleFonts.montserrat(
             fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.darkTextPrimary,
+          ),
+          bodySmall: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
             color: AppColors.darkTextSecondary,
           ),
           labelLarge: GoogleFonts.montserrat(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: accentColor,
           ),
+          labelMedium: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: accentColor,
+          ),
+          labelSmall: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: accentColor,
+          ),
+        ),
+      ),
+
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: isIOS, // iOS centers title, Android aligns left
+        iconTheme: IconThemeData(color: accentColor),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        titleTextStyle: GoogleFonts.oswald(
+          fontSize: isIOS ? 17 : 20,
+          fontWeight: FontWeight.w600,
+          color: accentColor,
+        ),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: accentColor,
+          foregroundColor: Colors.black,
+          elevation: 2,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: GoogleFonts.montserrat(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: accentColor,
+          textStyle: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+
+      iconTheme: IconThemeData(
+        color: accentColor,
+        size: 24,
+      ),
+
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: accentColor,
+        foregroundColor: Colors.black,
+        elevation: 4,
+      ),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.darkSurface,
+        selectedItemColor: accentColor,
+        unselectedItemColor: AppColors.darkTextSecondary,
+        type: BottomNavigationBarType.fixed,
+        elevation: 10,
+        selectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
         ),
       ),
 
@@ -78,7 +172,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryGreen, width: 1.5),
+          borderSide: BorderSide(color: accentColor, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -90,32 +184,6 @@ class AppTheme {
         ),
         prefixIconColor: AppColors.darkTextSecondary,
         suffixIconColor: AppColors.darkTextSecondary,
-      ),
-
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: isIOS, // iOS centers title, Android aligns left
-        iconTheme: IconThemeData(color: Colors.white),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-        ),
-        titleTextStyle: GoogleFonts.oswald(
-          fontSize: isIOS ? 17 : 20,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-      ),
-
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AppColors.darkSurface,
-        selectedItemColor: AppColors.primaryGreen,
-        unselectedItemColor: AppColors.darkTextSecondary,
-        type: BottomNavigationBarType.fixed,
-        elevation: 10,
       ),
     );
   }
@@ -153,28 +221,106 @@ class AppTheme {
             fontSize: 24,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            color: AppColors.lightTextPrimary,
+            color: accentColor,
           ),
           titleMedium: GoogleFonts.oswald(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
-            color: AppColors.lightTextPrimary,
+            color: accentColor,
+          ),
+          titleSmall: GoogleFonts.oswald(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+            color: accentColor,
           ),
           bodyLarge: GoogleFonts.montserrat(
             fontSize: 16,
+            fontWeight: FontWeight.w500,
             color: AppColors.lightTextPrimary,
           ),
           bodyMedium: GoogleFonts.montserrat(
             fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.lightTextPrimary,
+          ),
+          bodySmall: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
             color: AppColors.lightTextSecondary,
           ),
           labelLarge: GoogleFonts.montserrat(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: accentColor,
+          ),
+          labelMedium: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: accentColor,
+          ),
+          labelSmall: GoogleFonts.montserrat(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: accentColor,
           ),
         ),
+      ),
+
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: isIOS, // iOS centers title, Android aligns left
+        iconTheme: IconThemeData(color: accentColor),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+        titleTextStyle: GoogleFonts.oswald(
+          fontSize: isIOS ? 17 : 20,
+          fontWeight: FontWeight.w600,
+          color: accentColor,
+        ),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: accentColor,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: GoogleFonts.montserrat(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: accentColor,
+          textStyle: GoogleFonts.montserrat(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+
+      iconTheme: IconThemeData(
+        color: accentColor,
+        size: 24,
+      ),
+
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: accentColor,
+        foregroundColor: Colors.white,
+        elevation: 4,
       ),
 
       inputDecorationTheme: InputDecorationTheme(
@@ -191,7 +337,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryGreen, width: 1.5),
+          borderSide: BorderSide(color: accentColor, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -205,30 +351,20 @@ class AppTheme {
         suffixIconColor: AppColors.lightTextSecondary,
       ),
 
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: isIOS, // iOS centers title, Android aligns left
-        iconTheme: IconThemeData(color: AppColors.lightTextPrimary),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        titleTextStyle: GoogleFonts.oswald(
-          fontSize: isIOS ? 17 : 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.lightTextPrimary,
-        ),
-      ),
-
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.lightSurface,
-        selectedItemColor: AppColors.primaryGreen,
+        selectedItemColor: accentColor,
         unselectedItemColor: AppColors.lightTextSecondary,
         type: BottomNavigationBarType.fixed,
         elevation: 10,
+        selectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
